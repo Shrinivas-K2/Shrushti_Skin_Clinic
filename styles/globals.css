@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f8fbff;
+}
+
+::selection {
+  background: #ff009c;
+  color: white;
+}
+
+.field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(6, 17, 31, 0.1);
+  background: #f8fbff;
+  padding: 1rem 1.1rem;
+  color: #06111f;
+  outline: none;
+}
+
+.field:focus {
+  border-color: #ff009c;
+  box-shadow: 0 0 0 4px rgba(255, 0, 156, 0.11);
+}
+
+.page-slide {
+  animation: pageSlideIn 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.slide-card {
+  animation: cardSlideUp 680ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--motion-delay, 0ms);
+}
+
+.loader-card {
+  animation: loaderEnter 360ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.clinic-loader::before {
+  animation: loaderSpin 950ms linear infinite;
+  border: 3px solid rgba(255, 0, 156, 0.18);
+  border-top-color: #ff009c;
+  border-right-color: #11d9ff;
+  border-radius: 999px;
+  content: "";
+  inset: -6px;
+  position: absolute;
+}
+
+.clinic-loader::after {
+  animation: loaderPulse 1.4s ease-in-out infinite;
+  border: 1px solid rgba(17, 217, 255, 0.45);
+  border-radius: 999px;
+  content: "";
+  inset: -13px;
+  position: absolute;
+}
+
+.loading-bar {
+  animation: loadingSweep 1.05s ease-in-out infinite;
+  width: 42%;
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loaderEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loaderPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes loadingSweep {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  h1,
+  h2 {
+    word-break: break-word;
+  }
+}

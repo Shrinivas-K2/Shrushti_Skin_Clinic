@@ -1,0 +1,7 @@
+.next/
+node_modules/
+clinic-api/node_modules/
+.env
+.env.local
+clinic-api/.env
+npm-debug.log*
