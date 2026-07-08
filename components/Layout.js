@@ -1,7 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, CalendarDays, Facebook, Instagram, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { ArrowUpRight, CalendarDays, Facebook, Instagram, Mail, MapPin, Menu, Phone, Sparkles, X } from "lucide-react";
 import { clinic, services } from "@/data/site";
 import RouteLoader from "@/components/RouteLoader";
 
@@ -15,6 +17,10 @@ const nav = [
 ];
 
 export default function Layout({ children, title = clinic.name, description = clinic.tagline }) {
+  const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const currentPath = router.pathname === "/" ? "/" : `/${router.pathname.split("/")[1]}`;
+
   return (
     <>
       <Head>
@@ -33,29 +39,77 @@ export default function Layout({ children, title = clinic.name, description = cl
         <RouteLoader />
         <header className="fixed inset-x-0 top-0 z-50 border-b border-white/30 bg-white/80 shadow-sm backdrop-blur-xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
-            <Link href="/" className="flex items-center gap-3">
-              <span className="relative h-14 w-14 overflow-hidden rounded-full border border-bloom/20 bg-white shadow-bloom">
+            <Link href="/" className="flex min-w-0 items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+              <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-bloom/20 bg-white shadow-bloom sm:h-14 sm:w-14">
                 <Image src="/assets/brand/logo.jpeg" alt="Shrushti Skin Clinic logo" fill className="object-cover" />
               </span>
-              <span>
-                <span className="block text-lg font-extrabold uppercase tracking-wide text-bloom md:text-xl">
+              <span className="min-w-0">
+                <span className="block truncate text-base font-extrabold uppercase tracking-wide text-bloom sm:text-lg md:text-xl">
                   Shrushti
                 </span>
-                <span className="block text-xs font-semibold uppercase tracking-[0.22em] text-ink/60">
+                <span className="block truncate text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-ink/60 sm:text-xs sm:tracking-[0.22em]">
                   Skin Clinic
                 </span>
               </span>
             </Link>
             <nav className="hidden items-center gap-1 lg:flex">
               {nav.map(([label, href]) => (
-                <Link key={href} href={href} className="rounded-full px-4 py-2 text-sm font-semibold text-ink/70 hover:bg-bloom/10 hover:text-bloom">
+                <Link
+                  key={href}
+                  href={href}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    currentPath === href ? "bg-bloom/10 text-bloom" : "text-ink/70 hover:bg-bloom/10 hover:text-bloom"
+                  }`}
+                >
                   {label}
                 </Link>
               ))}
             </nav>
-            <Link href="/book-appointment" className="rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-glow transition hover:bg-bloom">
-              Book Appointment
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href="/book-appointment" className="hidden rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-glow transition hover:bg-bloom lg:inline-flex">
+                Book Appointment
+              </Link>
+              <button
+                type="button"
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
+                onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+                className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 bg-white text-ink shadow-sm transition hover:border-bloom/30 hover:text-bloom lg:hidden"
+              >
+                {mobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
+              </button>
+            </div>
+          </div>
+          <div
+            id="mobile-navigation"
+            className={`lg:hidden ${mobileMenuOpen ? "block" : "hidden"}`}
+          >
+            <div className="mx-4 mb-4 overflow-hidden rounded-lg border border-ink/10 bg-white shadow-glow">
+              <nav className="grid p-2">
+                {nav.map(([label, href]) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`rounded-md px-4 py-3 text-sm font-bold transition ${
+                      currentPath === href ? "bg-bloom/10 text-bloom" : "text-ink/70 hover:bg-serum hover:text-bloom"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </nav>
+              <div className="border-t border-ink/10 p-3">
+                <Link
+                  href="/book-appointment"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-ink px-4 py-3 text-sm font-extrabold text-white shadow-bloom transition hover:bg-bloom"
+                >
+                  Book Appointment <CalendarDays size={18} />
+                </Link>
+              </div>
+            </div>
           </div>
         </header>
         <main className="page-slide pt-20">{children}</main>
@@ -141,7 +195,6 @@ export default function Layout({ children, title = clinic.name, description = cl
           <div className="relative border-t border-white/10">
             <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-sm text-white/50 md:flex-row md:items-center md:justify-between lg:px-8">
               <span>Copyright 2026 {clinic.name}. All rights reserved.</span>
-              <span className="text-white/42">Built for public website, bookings and future clinic modules.</span>
             </div>
           </div>
         </footer>

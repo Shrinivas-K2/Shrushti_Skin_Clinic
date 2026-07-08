@@ -41,7 +41,7 @@ export default function Home() {
           </div>
           <div className="hidden lg:block">
             <div className="relative rounded-[2.5rem] border border-white/20 bg-white/10 p-4 shadow-glow backdrop-blur-xl">
-              <Image src="/assets/hero/carousel3.png" alt="Aesthetic care at Shrushti Skin Clinic" width={760} height={920} className="rounded-[2rem] object-cover" />
+              <Image src={clinic.doctorImage} alt={clinic.doctor} width={760} height={920} className="rounded-[2rem] object-cover object-top" />
               <div className="absolute -bottom-6 -left-6 rounded-3xl bg-white p-6 shadow-bloom">
                 <p className="text-sm font-bold uppercase tracking-[0.22em] text-bloom">Consultant</p>
                 <p className="mt-1 text-xl font-extrabold">{clinic.doctor}</p>

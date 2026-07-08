@@ -7,7 +7,7 @@ export default function Doctors() {
     <Layout title="Doctor | Shrushti Skin Clinic">
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-20 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
         <div className="relative min-h-[520px] overflow-hidden rounded-[2.5rem] bg-ink shadow-bloom">
-          <Image src="/assets/hero/carousel2.png" alt={clinic.doctor} fill className="object-cover opacity-85" />
+          <Image src={clinic.doctorImage} alt={clinic.doctor} fill className="object-cover object-top opacity-95" />
         </div>
         <div className="self-center">
           <p className="text-sm font-bold uppercase tracking-[0.32em] text-bloom">Dermatologist</p>

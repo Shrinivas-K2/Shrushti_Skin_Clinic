@@ -3,6 +3,7 @@ export const clinic = {
   tagline: "Advanced skin, hair and aesthetic care in Shivamogga and Bhadravathi",
   doctor: "Dr. Suman Singh K M",
   qualification: "MBBS, MD - DVL",
+  doctorImage: "/assets/doctors/suman-singh.png",
   email: "shrushtiskinclinic@gmail.com",
   phones: ["+91 8548971882", "+91 9611532302"],
   address:
