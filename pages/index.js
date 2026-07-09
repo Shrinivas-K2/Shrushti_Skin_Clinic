@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-20 lg:px-8">
-        <SectionHeader eyebrow="What we do" title="Expert skin and hair care designed to restore your natural glow" copy="Original service photos from the existing clinic website are stored locally and used throughout the experience." />
+        <SectionHeader eyebrow="What we do" title="Expert skin and hair care designed to restore your natural glow" />
         <div className="grid items-stretch gap-7 md:grid-cols-2 lg:grid-cols-4">
           {services.slice(0, 4).map((service, index) => <ServiceCard key={service.slug} service={service} index={index} />)}
         </div>
